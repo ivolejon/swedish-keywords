@@ -14,5 +14,6 @@ Sveriges nationella miljöövervakning av smågnagare utförs av Sveriges lantbr
 
 Om det är ett sorkår eller inte beror alltså på var i landet vi befinner oss. I Västmanland är årets sorkpopulation den tredje största sedan övervakningen startade 1973. Sork- och lämmelpopulationerna påverkar inte bara ugglor och rovfåglar. Ett toppår för sork syns tydligt i till exempel rävstammen, både samma år och året efter. Under ett bra sorkår minskar också rävens predation på exempelvis hare, orre och tjäder.
 """
+# text = "jag cyklar till london och berlin"
 keywords = machine.run(text, 'all')
 print(keywords)

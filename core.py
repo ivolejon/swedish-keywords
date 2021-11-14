@@ -21,7 +21,9 @@ class Extractor:
     ):
         self.n_gram_range = n_gram_range
         try:
+            print('Loading swedish model')
             self.nlp = spacy.load(spacy_model)
+            print('Done!')
         except OSError:
             logger.error(
                 f"Can't find spaCy model {spacy_model}.\n"

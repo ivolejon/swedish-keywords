@@ -23,21 +23,26 @@ def run(org_text, section):
         text = org_text
         chunks = [text]
 
-    n = v = e = []
+    n = v = e = words = []
 
     if section == 'all' or section == 'nouns':
+        print('Get nouns')
         n = nouns.get(text, chunks, extractor)
     if section == 'all' or section == 'verbs':
+        print('Get verbs')
         v = verbs.get(text, chunks, extractor)
     if section == 'all' or section == 'enteties':
-        e = entities.get(text)
+        print('Get enteties')
+        print(org_text)
+        e = entities.get(org_text, extractor)
 
     res = n + v
 
-    words = sorted(res, key=itemgetter('score'), reverse=True)
-    highest_score = words[0]['score']
-    for word in words:
-       word['score'] = normalize_score(word['score'], highest_score)
+    if section != 'enteties':
+        words = sorted(res, key=itemgetter('score'), reverse=True)
+        highest_score = words[0]['score']
+        for word in words:
+            word['score'] = normalize_score(word['score'], highest_score)
 
     res = dict(words=words, entities=e)
 
