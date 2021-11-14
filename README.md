@@ -17,6 +17,9 @@ There are three endpoint:
 - `/verbs` - Gets all `verbs`
 - `/enteties` - Gets all `enteties`
 
+**Type of word that gets returned**
+`NOUN`, `VERB`, `LOC`(location), `PRS`(person) `ORG`(organization)
+
 ## Test
 
 You can test and see that it all works by running `python test.py`
