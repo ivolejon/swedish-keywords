@@ -5,8 +5,9 @@ import machine
 
 template_dir = os.path.abspath('.')
 app = Flask(__name__,template_folder=template_dir)
-@app.route('/', methods = ['POST', 'GET'])
-def runKeyword():
+# section can be `all` `verbs` `nouns`
+@app.route('/<section>', methods = ['GET','POST'])
+def runKeyword(section):
     text = """
     Inte sedan 1979 och 1993 har det varit så få sorkar i norra Sverige. I fjälltrakterna är dessutom lämlarna ovanligt få. I Västmanland är det däremot ett riktigt sorkår. Det visar resultaten från årets miljöövervakning av smågnagare.
 
@@ -20,7 +21,7 @@ def runKeyword():
 
     Om det är ett sorkår eller inte beror alltså på var i landet vi befinner oss. I Västmanland är årets sorkpopulation den tredje största sedan övervakningen startade 1973. Sork- och lämmelpopulationerna påverkar inte bara ugglor och rovfåglar. Ett toppår för sork syns tydligt i till exempel rävstammen, både samma år och året efter. Under ett bra sorkår minskar också rävens predation på exempelvis hare, orre och tjäder.
     """
-    keywords = machine.run(text)
+    keywords = machine.run(text, section)
     return jsonify(keywords)
 
 if __name__ == '__main__':

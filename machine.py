@@ -7,7 +7,13 @@ import nouns
 import verbs
 import entities
 
-def run(org_text):
+def normalize_score(score, _max_):
+    _min_ = 0
+    _max_ = _max_ + 1
+    return (score - _min_) / (_max_-_min_)
+
+
+def run(org_text, section):
     extractor = Extractor()
     chunks_word_count = 250
     text = summarizer.summarize(org_text, language='swedish', words=500)
@@ -17,13 +23,22 @@ def run(org_text):
         text = org_text
         chunks = [text]
 
-    n = nouns.get(text, chunks, extractor)
-    v = verbs.get(text, chunks, extractor)
-    e = entities.get(text)
+    n = v = e = []
+
+    if section == 'all' or section == 'nouns':
+        n = nouns.get(text, chunks, extractor)
+    if section == 'all' or section == 'verbs':
+        v = verbs.get(text, chunks, extractor)
+    if section == 'all' or section == 'enteties':
+        e = entities.get(text)
 
     res = n + v
 
     words = sorted(res, key=itemgetter('score'), reverse=True)
+    highest_score = words[0]['score']
+    for word in words:
+       word['score'] = normalize_score(word['score'], highest_score)
+
     res = dict(words=words, entities=e)
 
     return res

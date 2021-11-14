@@ -30,12 +30,12 @@ def get(text, chunks, extractor):
             low_noun_words.append(dict(text=key, score=value))
 
     for hw in high_noun_words:
-        hw_score = hw['score']/10
+        hw_score = hw['score']
         for lw in low_noun_words:
             if(extractor.similarity(hw['text'], lw['text']) > 0.85):
-                hw_score = hw_score + 0.125
+                hw_score = hw_score + 1
                 final_noun_words.append(
-                    dict(text=lw['text'], type='NOUN', score=hw['score']/10*0.85))
+                    dict(text=lw['text'], type='NOUN', score=hw['score']*0.85))
         final_noun_words.append(
             dict(text=hw['text'], type='NOUN', score=hw_score))
 
